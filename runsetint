@@ -1,0 +1,11 @@
+#!/bin/bash
+
+####################
+# Set-Intersection #
+####################
+
+java -ea -cp dist/SetIntersection.jar:extlibs/jargs.jar:extlibs/commons-io-1.4.jar Test.TestSetIntersectionServer -n 8 -L 32 -j 2 -w 80 1>results/siserverout 2>results/siservererr &
+
+sleep 0.8
+
+java -ea -cp dist/SetIntersection.jar:extlibs/commons-io-1.4.jar:extlibs/jargs.jar Test.TestSetIntersectionClient --server localhost -r 2 1>results/siclientout 2>results/siclienterr & 

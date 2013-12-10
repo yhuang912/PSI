@@ -1,0 +1,28 @@
+(1) To compile and run the set intersection application, type
+
+   ant runsetint
+
+It invokes the "runsetint" bash script to run both the server and the client.
+
+This sript file looks like below.
+
+java -ea -cp dist/SetIntersection.jar:extlibs/jargs.jar:extlibs/commons-io-1.4.jar Test.TestSetIntersectionServer -n 8 -L 32 -j 2 -w 80 1>results/siserverout 2>results/siservererr & 
+
+# This starts the server.
+# The use of command lien parameters are as follows.
+   [{-L, --bit-length} L] --- number of bits to represent each set element.
+   [{-n} n] --- number of elements in each set.
+   [{-j, --joint-size} j] --- size of intersection, used for random data generation purpose.
+   [{-w, --wire-bitlength} w] --- number of bits to denote every wire label, defaults to 80.
+   [{-u, --use-data-file}]  -- defaults to false, indicating the sets are randomly generated; when -u presents, the sets are read from file "data" in the current working folder.
+
+sleep 0.8
+
+java -ea -cp dist/SetIntersection.jar:extlibs/commons-io-1.4.jar:extlibs/jargs.jar Test.TestSetIntersectionClient --server localhost -r 2 1>results/siclientout 2>results/siclienterr & 
+# this starts the client
+# --server:  specify the server ip
+# -r: specify how many times you want to run the test.
+
+The output goes to the file results/siserverout.
+
+Please direct further questions to Yan Huang (yhuang@virginia.edu).
